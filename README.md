@@ -39,9 +39,7 @@ console.log(result);
 [
   {
     id: 1,
-    name: 'Isaac',
     age: 10,
-    address: 'Kampala',
     details: [
       {
         name: 'Isaac',
@@ -55,9 +53,7 @@ console.log(result);
   },
   {
     id: 2,
-    name: 'Annet',
     age: 20,
-    address: 'Wakiso',
     details: [
       {
         name: 'Annet',

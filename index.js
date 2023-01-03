@@ -12,9 +12,7 @@
  * @example [
  * {
  *  id: 1,
- *  name: 'Isaac',
  *  age: 10,
- *  address: 'Kampala',
  *  details: [
  *      {
  *          name: 'Isaac',
@@ -27,9 +25,7 @@
  *  ]},
  *  {
  *   id: 2,
- *   name: "Annet",
  *   age: 20,
- *   address: 'Wakiso',
  *   details: [
  *      {
  *          name: 'Annet',
@@ -79,6 +75,12 @@ const transformList = (
         ...item,
         [lookupArray]: new Array(options),
       };
+
+      // Delete all fields in the fieldsArray from the main list
+      for (let value of fieldsArray) {
+        delete item[value];
+      }
+
       hashTable = { ...hashTable, [item[identifier]]: item[identifier] }; // spread the hashTable existing fields and add a new identifier for the new field
       result.push(item); // push the new item into the result
     }
