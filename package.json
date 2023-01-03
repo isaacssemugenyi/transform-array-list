@@ -1,12 +1,18 @@
 {
   "name": "transform-array-list",
-  "version": "0.0.0",
+  "version": "0.0.001",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"No test specified\""
   },
-  "keywords": [],
+  "keywords": [
+    "array",
+    "list",
+    "data",
+    "response",
+    "object"
+  ],
   "author": "",
   "license": "ISC"
 }
