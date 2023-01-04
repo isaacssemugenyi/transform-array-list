@@ -1,4 +1,5 @@
 /**
+ * @function transformList
  * @param { itemList, fieldsArray, identifier, lookupArray}
  * @description itemList: An array of objects with data from a data source
  * @example [{id: 1, name: 'Isaac', age: 10, address: 'Kampala'}, {id: 2, name: 'Annet', age: 20, address: 'Wakiso'}, {id: 1, name: 'Phesto', age: 13, address: 'Mutundwe'}]
@@ -89,6 +90,45 @@ const transformList = (
   return result; // return the results fomulated
 };
 
+/**
+ * @function includesAll
+ * @param arrToCheckWith string[] | integer[] | boolean[]
+ * @param arrToCompare string[] | integer[] | boolean[]
+ * @description function that is meant to compare arrToCompare with arrToCheckWith, if all elements in arrToCompare exists in arrToCheckWith, it returns true else false
+ * @example includesAll(['isaac', 'jane', 'john', 'jean', 'peninah' ], ['jane', 'jean']) -> output is 'true'
+ * @example includesAll(['isaac', 'jane', 'john', 'jean', 'peninah' ], ['jane', 'phillip']) -> output is 'false'
+ * @returns boolean (true || false)
+ */
+
+const includesAll = (arrToCheckWith, arrToCompare) => {
+  if (!Array.isArray(arrToCheckWith) || !Array.isArray(arrToCompare))
+    throw new Error('Only arrays are supported');
+
+  if (arrToCheckWith.length <= 0 || arrToCompare.length <= 0)
+    throw new Error('Empty arrays are not supported');
+
+  if (typeof arrToCheckWith[0] === 'object' || Array.isArray(arrToCheckWith[0]))
+    throw new Error(
+      'Only arrays of strings, integers or boolean are supported'
+    );
+
+  if (typeof arrToCompare[0] === 'object' || Array.isArray(arrToCompare[0]))
+    throw new Error(
+      'Only arrays of strings, integers or boolean are supported'
+    );
+
+  let results = [];
+  for (let item of arrToCompare) {
+    if (!arrToCheckWith.includes(item)) {
+      results.push(false);
+    }
+    results.push(true);
+  }
+  const finalResults = [...new Set(results)];
+  return finalResults.includes(false) ? false : true;
+};
+
 module.exports = {
   transformList,
+  includesAll,
 };

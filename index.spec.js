@@ -1,4 +1,4 @@
-const { transformList } = require('./index');
+const { transformList, includesAll } = require('./index');
 
 describe('Transform Array Function', () => {
   test('First Argument be an Array', () => {
@@ -50,5 +50,50 @@ describe('Transform Array Function', () => {
       'output'
     );
     expect(result).toEqual([{ age: '25', id: 4, output: [{ name: 'Isaac' }] }]);
+  });
+});
+
+describe('includesAll Array Function', () => {
+  test('Array supported', () => {
+    expect(() => includesAll()).toThrow('Only arrays are supported');
+  });
+
+  test('Empty array', () => {
+    expect(() => includesAll([], [])).toThrow('Empty arrays are not supported');
+  });
+
+  test('object not supported', () => {
+    expect(() => includesAll([[]], [[]])).toThrow(
+      'Only arrays of strings, integers or boolean are supported'
+    );
+    expect(() => includesAll([{}], [{}])).toThrow(
+      'Only arrays of strings, integers or boolean are supported'
+    );
+    expect(() => includesAll([[]], [{}])).toThrow(
+      'Only arrays of strings, integers or boolean are supported'
+    );
+    expect(() => includesAll([{}], [[]])).toThrow(
+      'Only arrays of strings, integers or boolean are supported'
+    );
+  });
+
+  test('returns true', () => {
+    expect(includesAll([true, false, false, true], [false])).toBe(true);
+    expect(includesAll([false, true], [true, false, true])).toBe(true);
+    expect(includesAll(['isaac', 'tom', 'john'], ['tom'])).toBe(true);
+    expect(includesAll(['isaac', 2, 'john', 10], ['isaac', 10, 'john'])).toBe(
+      true
+    );
+    expect(includesAll([1, 2, 3, 10], [2, 10])).toBe(true);
+    expect(includesAll([1, 2, false, 10, true], [2, 10, false])).toBe(true);
+  });
+
+  test('returns false', () => {
+    expect(includesAll([false], [false, true])).toBe(false);
+    expect(includesAll([2, 4, 6, 8], [5, 2])).toBe(false);
+    expect(includesAll(['tom', 'isaac'], ['isaac', 'tom', 'john'])).toBe(false);
+    expect(
+      includesAll(['tom', 4, 6, 'isaac'], ['isaac', 'tom', 'john', 6])
+    ).toBe(false);
   });
 });
