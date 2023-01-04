@@ -1,9 +1,11 @@
 # Usage
 
+#### transformList
+
 ```js
 const TransformArrayList = require('transform-array-list');
 // or
-const { transformList } = require('transform-array-list');
+const { transformList, includesAll } = require('transform-array-list');
 
 // List to Transform
 const itemList = [
@@ -63,6 +65,31 @@ console.log(result);
   },
 ];
 ```
+
+#### includesAll
+
+- require includes from transformArrayList
+- first argument
+
+  ```js
+  const arrToCheckWith = ['isaac', 'tom', 'jack'];
+  ```
+
+- second argument
+
+  ```js
+  const arrToCompare = ['tom', 'isaac'];
+  ```
+
+- call the function and store passing these params and store the result in any variable
+
+  ```js
+  const result = includesAll(arrToCheckWith, arrToCompare);
+  console.log(result);
+
+  //output
+  true;
+  ```
 
 ### Note
 
