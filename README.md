@@ -1,4 +1,4 @@
-Usage
+# Usage
 
 ```js
 const TransformArrayList = require('transform-array-list');
@@ -63,3 +63,10 @@ console.log(result);
   },
 ];
 ```
+
+### Note
+
+- `require` is only supported
+- Written in Javascript (plan to re-write it in typescript later)
+- Currently no tests
+- More error handling needed to compare whether fieldsArray element exist in the itemsList

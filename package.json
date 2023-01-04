@@ -1,6 +1,6 @@
 {
   "name": "transform-array-list",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,11 @@
     "list",
     "data",
     "response",
-    "object"
+    "object",
+    "postgres",
+    "pg-promise",
+    "pg",
+    "mysql"
   ],
   "author": "",
   "license": "ISC"
