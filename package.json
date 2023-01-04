@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No test specified\""
+    "test": "jest *.spec.js"
   },
   "keywords": [
     "array",
@@ -18,5 +18,8 @@
     "mysql"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
 }
