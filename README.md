@@ -1,10 +1,7 @@
 Transform an array of objects with duplicate objects into single objects with nested arrays of vital data
 
-- [Usage](#usage)
-      - [transformList](#transformlist)
-      - [includesAll](#includesall)
-      - [objToArray](#objtoarray)
-    - [Note](#note)
+- [Usage](#usage) - [transformList](#transformlist) - [includesAll](#includesall) - [objToArray](#objtoarray) - [arrayToObject](#arraytoobject)
+  - [Note](#note)
 
 # Usage
 
@@ -149,6 +146,76 @@ console.log(result);
   const result = objToArray({ id: 1, name: 'Isaac', age: 30 }, 3);
   // type is 3, object entries returned flattened
   // output -> ['id', 4, 'name', 'Isaac', 'age', 25]
+  ```
+
+#### arrayToObject
+
+```js
+const { arrayToObject } = require('transform-array-list');
+```
+
+- options
+
+  1. default option
+
+  ```js
+  const result = arrayToObject([1, 2, 3]);
+  // type is missing, so 0 will be used as the type and object values will be returned
+  //output -> [{ 0: 1 }, { 1: 2 }, { 2: 3 }]
+  ```
+
+  2. second option
+
+  ```js
+  const result = arrayToObject(
+    [
+      ['Male', 'Isaac'],
+      ['Female', 'annet'],
+    ],
+    0
+  );
+  // type is specified as 0
+  //output -> [{ 0: ['Male', 'Isaac'] }, { 1: ['Female', 'annet'] }]
+  ```
+
+  3.  third option
+
+  ```js
+  const result = arrayToObject(['one', 'two', 'three'], 1);
+  // type is specified as 1, array of objects returned with key 'item'
+  //output -> [{ item: 'one' },{ item: 'two' },{ item: 'three' },]
+  ```
+
+  4. forth option
+
+  ```js
+  const result = arrayToObject(
+    [
+      'address',
+      { default: 'Kampala', home: 'Mpigi', work: 'Wakiso' },
+      'bio',
+      { firstName: 'Isaac', lastName: 'Johns' },
+    ],
+    2
+  );
+  // type is 2, current element is used as key and proceeding element is set as the value in the returned array of object
+
+  // output -> [{ address: { default: 'Kampala', home: 'Mpigi', work: 'Wakiso' } },{ bio: { firstName: 'Isaac', lastName: 'Johns' } },]
+  ```
+
+  5. firth option
+
+  ```js
+  const result = arrayToObject(
+    [
+      [5, { name: 'isaac' }],
+      [7, { name: 'annet' }],
+    ],
+    3
+  );
+  // type is 3, main array elements (arrays as well), each nested array, its first element is set as key and second element as value
+
+  // output -> [{ 5: { name: 'isaac' } }, { 7: { name: 'annet' } }]
   ```
 
 ### Note

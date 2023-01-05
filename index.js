@@ -139,11 +139,11 @@ const includesAll = (arrToCheckWith, arrToCompare) => {
 
 /**
  * @function objToArray
- * @param {transObj, type}
- * @summary transObj is an object, and type is optional with 0 as default, range 0 to 3 as a number
+ * @param {obj, type}
+ * @summary obj is an object, and type is optional with 0 as default, range 0 to 3 as a number
  * @summary function takes an object with a single depth
  * @description a function meant to work on an object and return an array of values from the object
- * @example objValuesToArray({ id: 4, name: 'Isaac', age: 25})
+ * @example objToArray({ id: 4, name: 'Isaac', age: 25})
  * @returns type: 0 -> [4, 'Isaac', 25], 1 -> ['id', 'name', 'age'], 2 -> [['id', 4], ['name', 'Isaac'], ['age', 25]], 3 -> ['id', 4, 'name', 'Isaac', 'age', 25]
  */
 const objToArray = (obj, type = 0) => {
@@ -173,8 +173,67 @@ const objToArray = (obj, type = 0) => {
   return options[type];
 };
 
+/**
+ * @function arrayToObject
+ * @param {array, type}
+ * @summary array is an array, and type is optional with 0 as default, range 0 to 3 as a number
+ * @summary function takes an array
+ * @description a function meant to work on an array of integers, strings, or 2D array and return an array of object
+ * @example arrayToObject([1, 2, 3])
+ * @example arrayToObject([1, 2, 3], 0)
+ * @example arrayToObject([1, 2, 3], 1)
+ * @example arrayToObject([1, 2, 3, 4], 2)
+ * @example arrayToObject([[1, 2], [3, 4]], 3)
+ * @returns type:
+ * 0 -> [{ 0: 1 }, { 1: 2 }, { 2: 3 }],
+ * 1 -> [{ item: 1 }, { item: 2 }, { item: 3 }],
+ * 2 -> [{ 1: 2 }, { 3: 4 }], Here if array length is odd, the last element is removed
+ * 3 -> [{ 1: 2 }, { 3: 4 }]
+ */
+const arrayToObject = (array, type = 0) => {
+  if (!Array.isArray(array)) {
+    throw new Error('An array is expected as a first argument');
+  }
+
+  if (array.length <= 0) {
+    throw new Error('An array should not be empty');
+  }
+
+  if (typeof type !== 'number') {
+    throw new Error('Type can only be a number either 0, 1, 2, 3');
+  }
+
+  if (type < 0 || type > 3) {
+    throw new Error('Type can only be either 0, 1, 2, 3');
+  }
+
+  if (type === 2 && array.length % 2 !== 0) array.pop();
+
+  if (type === 3 && (array[0].length <= 0 || array[0].length > 2)) {
+    throw new Error('With type 3, elements of array should each be length 2');
+  }
+
+  const format2IndexObj = (list) => {
+    const result = [];
+
+    for (let i = 0; i < list.length; i += 2) {
+      result.push({ [list[i]]: list[i + 1] });
+    }
+    return result;
+  };
+
+  const options = {
+    0: array.map((item, index) => ({ [index]: item })),
+    1: array.map((item) => ({ item: item })),
+    2: format2IndexObj(array),
+    3: array.map((item) => ({ [item[0]]: item[1] })),
+  };
+  return options[type];
+};
+
 module.exports = {
   transformList,
   includesAll,
   objToArray,
+  arrayToObject,
 };

@@ -1,6 +1,11 @@
-const { transformList, includesAll, objToArray } = require('./index');
+const {
+  transformList,
+  includesAll,
+  objToArray,
+  arrayToObject,
+} = require('./index');
 
-describe('Transform Array Function', () => {
+describe('transformList', () => {
   test('First Argument be an Array', () => {
     expect(() => transformList()).toThrow('First argument should be an array');
   });
@@ -53,7 +58,7 @@ describe('Transform Array Function', () => {
   });
 });
 
-describe('includesAll Array Function', () => {
+describe('includesAll', () => {
   test('Array supported', () => {
     expect(() => includesAll()).toThrow('Only arrays are supported');
   });
@@ -98,7 +103,7 @@ describe('includesAll Array Function', () => {
   });
 });
 
-describe('objToArray Function', () => {
+describe('objToArray', () => {
   test('Expect object as an argument', () => {
     expect(() => objToArray(4)).toThrow('An object is expected');
     expect(() => objToArray()).toThrow('An object is expected');
@@ -186,5 +191,135 @@ describe('objToArray Function', () => {
       3
     );
     expect(result).toEqual(['id', 4, 'name', 'Isaac', 'age', 25]);
+  });
+});
+
+describe('arrayToObject', () => {
+  test('throw an error array expected', () => {
+    expect(() => arrayToObject()).toThrow(
+      'An array is expected as a first argument'
+    );
+    expect(() => arrayToObject('testing')).toThrow(
+      'An array is expected as a first argument'
+    );
+    expect(() => arrayToObject({})).toThrow(
+      'An array is expected as a first argument'
+    );
+  });
+
+  test('throw an error of empty array', () => {
+    expect(() => arrayToObject([])).toThrow('An array should not be empty');
+  });
+
+  test('empty nested array or more than 2 elements', () => {
+    expect(() => arrayToObject([[]], 3)).toThrow(
+      'With type 3, elements of array should each be length 2'
+    );
+    expect(() => arrayToObject([[1, 2, 3]], 3)).toThrow(
+      'With type 3, elements of array should each be length 2'
+    );
+  });
+
+  test('throw an error type be a number', () => {
+    expect(() => arrayToObject([1, 2], 'me')).toThrow(
+      'Type can only be a number either 0, 1, 2, 3'
+    );
+
+    expect(() => arrayToObject([1, 2], 4)).toThrow(
+      'Type can only be either 0, 1, 2, 3'
+    );
+  });
+
+  test('returns an array of object with indices as keys', () => {
+    expect(arrayToObject([1, 2, 3])).toEqual([{ 0: 1 }, { 1: 2 }, { 2: 3 }]);
+    expect(arrayToObject(['home', 'work'])).toEqual([
+      { 0: 'home' },
+      { 1: 'work' },
+    ]);
+
+    expect(arrayToObject([1, false, 'home'])).toEqual([
+      { 0: 1 },
+      { 1: false },
+      { 2: 'home' },
+    ]);
+
+    expect(arrayToObject([{ name: 'Isaac' }, { name: 'annet' }])).toEqual([
+      { 0: { name: 'Isaac' } },
+      { 1: { name: 'annet' } },
+    ]);
+
+    expect(
+      arrayToObject(
+        [
+          ['Male', 'Isaac'],
+          ['Female', 'annet'],
+        ],
+        0
+      )
+    ).toEqual([{ 0: ['Male', 'Isaac'] }, { 1: ['Female', 'annet'] }]);
+  });
+
+  test('returns an array of object with item as keys', () => {
+    expect(arrayToObject([1, 2, 3], 1)).toEqual([
+      { item: 1 },
+      { item: 2 },
+      { item: 3 },
+    ]);
+
+    expect(arrayToObject(['one', 'two', 'three'], 1)).toEqual([
+      { item: 'one' },
+      { item: 'two' },
+      { item: 'three' },
+    ]);
+
+    expect(
+      arrayToObject(
+        [{ name: 'Isaac' }, { name: 'annet' }, { name: 'phillip' }],
+        1
+      )
+    ).toEqual([
+      { item: { name: 'Isaac' } },
+      { item: { name: 'annet' } },
+      { item: { name: 'phillip' } },
+    ]);
+  });
+
+  test('returns an array of object with first element as a key and next element as an object', () => {
+    expect(arrayToObject([5, 2, 7, 4], 2)).toEqual([{ 5: 2 }, { 7: 4 }]);
+    expect(
+      arrayToObject(
+        [
+          'address',
+          { default: 'Kampala', home: 'Mpigi', work: 'Wakiso' },
+          'bio',
+          { firstName: 'Isaac', lastName: 'Johns' },
+        ],
+        2
+      )
+    ).toEqual([
+      { address: { default: 'Kampala', home: 'Mpigi', work: 'Wakiso' } },
+      { bio: { firstName: 'Isaac', lastName: 'Johns' } },
+    ]);
+  });
+
+  test('returns an array of object with first element in the nested array as key and second element as the value', () => {
+    expect(
+      arrayToObject(
+        [
+          [5, 2],
+          [7, 4],
+        ],
+        3
+      )
+    ).toEqual([{ 5: 2 }, { 7: 4 }]);
+    expect(
+      arrayToObject(
+        [
+          [5, { name: 'isaac' }],
+          [7, { name: 'annet' }],
+        ],
+        3
+      )
+    ).toEqual([{ 5: { name: 'isaac' } }, { 7: { name: 'annet' } }]);
   });
 });
