@@ -44,17 +44,26 @@ const transformList = (
 ) => {
   let hashTable = {};
   let result = [];
-  if (!Array.isArray(itemList)) return 'First argument should be an array';
+  if (!Array.isArray(itemList)) {
+    throw new Error('First argument should be an array');
+  }
   // check if objects in itemList is an object
-  if (itemList.length <= 0) return 'First array can not be empty';
-  if (!Array.isArray(fieldsArray)) return 'Second argument should be an array';
+  if (itemList.length <= 0) {
+    throw new Error('First array can not be empty');
+  }
+  if (!Array.isArray(fieldsArray)) {
+    throw new Error('Second argument should be an array');
+  }
   // check if elements in fieldsArray are strings
-  if (fieldsArray.length <= 0) return 'Second array can not be empty';
+  if (fieldsArray.length <= 0) {
+    throw new Error('Second array can not be empty');
+  }
   if (
     typeof itemList[0][identifier] !== 'number' &&
     typeof itemList[0][identifier] !== 'string'
-  )
-    return 'Identifier should be a number or a string';
+  ) {
+    throw new Error('Identifier should be a number or a string');
+  }
 
   for (let item of itemList) {
     // single item in the itemList

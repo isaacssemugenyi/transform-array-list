@@ -1,3 +1,5 @@
+Transform an array of objects with duplicate objects into single objects with nested arrays of vital data
+
 # Usage
 
 #### transformList
