@@ -137,7 +137,44 @@ const includesAll = (arrToCheckWith, arrToCompare) => {
   return finalResults.includes(false) ? false : true;
 };
 
+/**
+ * @function objToArray
+ * @param {transObj, type}
+ * @summary transObj is an object, and type is optional with 0 as default, range 0 to 3 as a number
+ * @summary function takes an object with a single depth
+ * @description a function meant to work on an object and return an array of values from the object
+ * @example objValuesToArray({ id: 4, name: 'Isaac', age: 25})
+ * @returns type: 0 -> [4, 'Isaac', 25], 1 -> ['id', 'name', 'age'], 2 -> [['id', 4], ['name', 'Isaac'], ['age', 25]], 3 -> ['id', 4, 'name', 'Isaac', 'age', 25]
+ */
+const objToArray = (obj, type = 0) => {
+  if (typeof obj !== 'object' || Array.isArray(obj)) {
+    throw new Error('An object is expected');
+  }
+
+  if (JSON.stringify(obj) === '{}') {
+    throw new Error('Object can not be empty');
+  }
+
+  if (typeof type !== 'number') {
+    throw new Error('Type can only be a number either 0, 1, 2, 3');
+  }
+
+  if (type < 0 || type > 3) {
+    throw new Error('Type can only be either 0, 1, 2, 3');
+  }
+
+  const options = {
+    0: Object.values(obj),
+    1: Object.keys(obj),
+    2: Object.entries(obj),
+    3: Object.entries(obj).flat(),
+  };
+
+  return options[type];
+};
+
 module.exports = {
   transformList,
   includesAll,
+  objToArray,
 };

@@ -1,4 +1,4 @@
-const { transformList, includesAll } = require('./index');
+const { transformList, includesAll, objToArray } = require('./index');
 
 describe('Transform Array Function', () => {
   test('First Argument be an Array', () => {
@@ -95,5 +95,96 @@ describe('includesAll Array Function', () => {
     expect(
       includesAll(['tom', 4, 6, 'isaac'], ['isaac', 'tom', 'john', 6])
     ).toBe(false);
+  });
+});
+
+describe('objToArray Function', () => {
+  test('Expect object as an argument', () => {
+    expect(() => objToArray(4)).toThrow('An object is expected');
+    expect(() => objToArray()).toThrow('An object is expected');
+    expect(() => objToArray([])).toThrow('An object is expected');
+  });
+
+  test('An Empty object as an argument', () => {
+    expect(() => objToArray({})).toThrow('Object can not be empty');
+  });
+
+  test('Type to be a number', () => {
+    expect(() => objToArray({ id: 3 }, '4')).toThrow(
+      'Type can only be a number either 0, 1, 2, 3'
+    );
+  });
+
+  test('Type either 0, 1, 2, 3', () => {
+    expect(() => objToArray({ id: 3 }, -2)).toThrow(
+      'Type can only be either 0, 1, 2, 3'
+    );
+  });
+
+  test('Type either 0, 1, 2, 3', () => {
+    expect(() => objToArray({ id: 3 }, 4)).toThrow(
+      'Type can only be either 0, 1, 2, 3'
+    );
+  });
+
+  test('returns an array with object values', () => {
+    const result = objToArray({
+      id: 4,
+      name: 'Isaac',
+      age: 25,
+    });
+    expect(result).toEqual([4, 'Isaac', 25]);
+  });
+
+  test('returns an array with object values', () => {
+    const result = objToArray(
+      {
+        id: 4,
+        name: 'Isaac',
+        age: 25,
+      },
+      0
+    );
+    expect(result).toEqual([4, 'Isaac', 25]);
+  });
+
+  test('returns an array with object keys', () => {
+    const result = objToArray(
+      {
+        id: 4,
+        name: 'Isaac',
+        age: 25,
+      },
+      1
+    );
+    expect(result).toEqual(['id', 'name', 'age']);
+  });
+
+  test('returns an array with object entries', () => {
+    const result = objToArray(
+      {
+        id: 4,
+        name: 'Isaac',
+        age: 25,
+      },
+      2
+    );
+    expect(result).toEqual([
+      ['id', 4],
+      ['name', 'Isaac'],
+      ['age', 25],
+    ]);
+  });
+
+  test('returns an array with object flat keys and values', () => {
+    const result = objToArray(
+      {
+        id: 4,
+        name: 'Isaac',
+        age: 25,
+      },
+      3
+    );
+    expect(result).toEqual(['id', 4, 'name', 'Isaac', 'age', 25]);
   });
 });
