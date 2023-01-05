@@ -1,5 +1,9 @@
 Transform an array of objects with duplicate objects into single objects with nested arrays of vital data
 
+[transformList](#transformlist)
+[includesAll](#includesall)
+[Vital Notes](#note)
+
 # Usage
 
 #### transformList
