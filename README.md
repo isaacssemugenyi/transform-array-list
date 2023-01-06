@@ -96,7 +96,7 @@ console.log(result);
   true;
   ```
 
-  #### objToArray
+  ### objToArray
 
 - requires an object with properties and a type (number)
 - first argument value will be an object
@@ -148,7 +148,7 @@ console.log(result);
   // output -> ['id', 4, 'name', 'Isaac', 'age', 25]
   ```
 
-#### arrayToObject
+### arrayToObject
 
 ```js
 const { arrayToObject } = require('transform-array-list');

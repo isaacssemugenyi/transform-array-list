@@ -21,7 +21,7 @@
     "pg",
     "mysql"
   ],
-  "author": "",
+  "author": "Isaac Ssemugenyi <isaacpro01@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "jest": "^29.3.1"
