@@ -1,3 +1,7 @@
+![npm](https://img.shields.io/npm/v/transform-array-list)
+![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/transform-array-list/0.6.0)
+![licence (MIT)](https://img.shields.io/npm/l/transform-array-list)
+
 Transform an array of objects with duplicate objects into single objects with nested arrays of vital data
 
 - [Usage](#usage) - [transformList](#transformlist) - [includesAll](#includesall) - [objToArray](#objtoarray) - [arrayToObject](#arraytoobject)
@@ -220,5 +224,5 @@ const { arrayToObject } = require('transform-array-list');
 
 ### Note
 
-- Added types since for version `0.6.0`, if you experience a problem raise an issue [here](https://github.com/isaacssemugenyi/transform-array-list/issues) and as well you can install a lower version by run command `npm i transform-array-list@0.5.1` which has no type definifions.
+- Fixed bug within types in version `0.6.1`, if you experience a problem raise an issue [here](https://github.com/isaacssemugenyi/transform-array-list/issues) and as well you can install a lower version by running command `npm i transform-array-list@0.5.1` which has no type definifions.
 - More error handling needed to compare whether fieldsArray element exist in the itemsList
