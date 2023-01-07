@@ -1,5 +1,5 @@
 ![npm](https://img.shields.io/npm/v/transform-array-list)
-![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/transform-array-list/0.6.0)
+![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/transform-array-list/0.6.1)
 ![licence (MIT)](https://img.shields.io/npm/l/transform-array-list)
 
 Transform an array of objects with duplicate objects into single objects with nested arrays of vital data
