@@ -220,6 +220,5 @@ const { arrayToObject } = require('transform-array-list');
 
 ### Note
 
-- `require` is only supported
-- Written in Javascript (plan to re-write it in typescript later)
+- Added types since for version `0.6.0`, if you experience a problem raise an issue [here](https://github.com/isaacssemugenyi/transform-array-list/issues) and as well you can install a lower version by run command `npm i transform-array-list@0.5.1` which has no type definifions.
 - More error handling needed to compare whether fieldsArray element exist in the itemsList
