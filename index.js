@@ -96,6 +96,9 @@ const transformList = (
     }
   }
 
+  // Reset the hashTable
+  hashTable = Object.assign({}, {});
+
   return result; // return the results fomulated
 };
 
